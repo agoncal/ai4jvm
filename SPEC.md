@@ -15,7 +15,7 @@ AI4JVM is a curated guide to the Java AI ecosystem — a single-page website cov
 - Dark background (`#0f1117`), card surfaces (`#1e2230`), accent purple (`#6c63ff`), accent blue (`#38bdf8`), accent pink (`#f472b6`)
 - Cards have hover effects (border highlight, slight lift)
 - Badge types: `badge-framework` (purple), `badge-inference` (blue), `badge-assistant` (pink), `badge-resource` (green)
-- Where possible use icons for links - for blog or other use a world / www icon.
+- Where possible use icons for links - for blog or other use a world / www icon. don't use text labels.
 
 ## Hero
 
@@ -100,12 +100,12 @@ Technologies that supercharge Java development when paired with AI code assistan
 ### Javadocs.dev MCP Server
 - **Badge:** MCP Server
 - **Description:** Gives AI assistants live access to Java, Kotlin, and Scala library documentation from Maven Central. Six tools including latest-version lookup, Javadoc symbol browsing, and source file retrieval. Connect any MCP client via Streamable HTTP.
-- **Links:** [Connect (MCP)](https://www.javadocs.dev/mcp) · [Docker MCP](https://hub.docker.com/mcp/server/javadocs/overview) · [GitHub](https://github.com/jamesward/javadoccentral)
+- **Links:** website: https://www.javadocs.dev/
 
 ### SkillsJars
 - **Badge:** Skills
 - **Description:** A packaging format and registry for distributing reusable AI agent skills as Maven/Gradle JARs. Skills are Markdown files (`SKILL.md`) under `META-INF/skills/` that teach AI agents domain-specific patterns. Discover and load skills on demand in Claude Code, Kiro, and Spring AI apps.
-- **Links:** [Registry](https://www.skillsjars.com/) · [Agent Utils](https://github.com/spring-ai-community/spring-ai-agent-utils) · [Testing Skills](https://github.com/spring-ai-community/spring-testing-skills)
+- **Links:** website: https://www.skillsjars.com/
 
 ---
 
