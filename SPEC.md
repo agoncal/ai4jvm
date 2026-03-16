@@ -171,6 +171,15 @@ Notes:
 - **Role:** Developer Advocate — IBM Research, JavaLand founder
 - **Links:** [@myfear](https://twitter.com/myfear) · [Bluesky](https://bsky.app/profile/myfear.com) · [GitHub](https://github.com/myfear) · [LinkedIn](https://www.linkedin.com/in/markuseisele/) · [Blog](https://blog.eisele.net/)
 
+### Frank Greco
+
+- **Badge:** Person
+- **Java Champion**
+- **Initials:** FG
+- **Photo:** https://avatars.githubusercontent.com/u/193434?v=4
+- **Role:** NYJavaSIG founder, AI 4 Java educator, JSR 381 co-author
+- **Links:** [@frankgreco](https://twitter.com/frankgreco) · [Bluesky](https://bsky.app/profile/frankgreco.bsky.social) · [GitHub](https://github.com/fgreco55) · [LinkedIn](https://www.linkedin.com/in/frankdgreco/) · [Website](https://ai4java.com)
+
 ### Rod Johnson
 
 - **Badge:** Person
