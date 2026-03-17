@@ -34,7 +34,6 @@ Note: Order by date, newest first. Don't show news older than 3 months
 - https://blog.jetbrains.com/kotlin/2026/03/introducing-tracy-the-ai-observability-library-for-kotlin/
 - https://www.tmdevlab.com/mcp-server-performance-benchmark.html
 - https://thenewstack.io/2026-java-ai-apps/
-- https://spring.io/blog/2026/01/23/spring-ai-2-0-0-M2-available-now
 - https://medium.com/embabel/agent-memory-is-not-a-greenfield-problem-ground-it-in-your-existing-data-9272cabe1561
 - https://inside.java/2026/02/01/devoxxbelgium-production-langchain4j/
 
