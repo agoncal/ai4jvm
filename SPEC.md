@@ -252,6 +252,14 @@ Notes:
 - **Role:** LangGraph4j creator, Principal Software Architect
 - **Links:** [@bsorrentinoJ](https://twitter.com/bsorrentinoJ) · [GitHub](https://github.com/bsorrentino) · [LinkedIn](https://www.linkedin.com/in/bartolomeosorrentino/)
 
+### Christian Tzolov
+
+- **Badge:** Person
+- **Initials:** CT
+- **Photo:** https://avatars.githubusercontent.com/u/1351573?v=4
+- **Role:** Spring AI lead, MCP Java SDK founder, Spring team at Broadcom
+- **Links:** [@christzolov](https://twitter.com/christzolov) · [Bluesky](https://bsky.app/profile/tzolov.bsky.social) · [GitHub](https://github.com/tzolov) · [LinkedIn](https://www.linkedin.com/in/tzolov/)
+
 ### Dan Vega
 
 - **Badge:** Person
