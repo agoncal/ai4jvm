@@ -118,6 +118,11 @@ Note: Order by date, newest first. Don't show news older than 3 months
 - **Description:** Docling Java is the official Java client and tooling for Docling — a suite that converts messy documents into structured data and simplifies downstream document and AI processing by detecting tables, formulas, reading order, OCR, and much more.
 - **Links:** [Docs](https://docling-project.github.io/docling-java/current) · [GitHub](https://github.com/docling-project/docling-java)
 
+### OmniHai
+- **Badge:** Library
+- **Description:** Unified Java AI utility library for Jakarta EE and MicroProfile. Single API across 10+ providers with zero external runtime dependencies — just java.net.http.HttpClient. Chat, streaming, structured outputs, web search, translation, moderation, image/audio generation, and more in a ~210 KB JAR.
+- **Links:** [Website](https://omnihai.org) · [GitHub](https://github.com/omnifaces/omnihai) · [Javadoc](https://javadoc.io/doc/org.omnifaces/omnihai)
+
 ---
 
 ## Java with Code Assistants
