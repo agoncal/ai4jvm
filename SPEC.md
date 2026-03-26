@@ -18,6 +18,13 @@ AI4JVM is a curated guide to the Java AI ecosystem — a single-page website cov
 - Where possible use icons for links - for blog or other use a world / www icon. don't use text labels.
 - In a given section, use different colors for different badge types.
 
+### Link Affordance
+- **Clickable cards:** If a card has a single primary destination (e.g. resource cards with one link), make the entire card an `<a>` tag so clicking anywhere on the card navigates. Keep secondary icon links overlaid on top.
+- **Card titles as links:** For cards with multiple links (frameworks, tools), make the card `h3` title a clickable link to the primary resource (docs or website). Style title links with an underline on hover.
+- **News links:** Underline news item links so they're visually distinct from surrounding text.
+- **Inline text links:** Any link within body text or descriptions should be underlined.
+- **Don't mislead:** Only apply hover lift/border effects to cards that are actually clickable. Non-clickable cards should still have a subtle hover border but no translateY lift.
+
 ## Hero
 
 - Title: "Java meets **Artificial Intelligence**" (gradient text on "Artificial Intelligence")
