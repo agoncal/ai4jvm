@@ -6,8 +6,8 @@ Reads the following environment variables:
   GITHUB_TOKEN   (required) GitHub token used for API auth
   SYSTEM_PROMPT  (required) System prompt passed to the model
   USER_PROMPT    (required) User message passed to the model
-  MODEL          (optional) Model identifier (default: openai/gpt-4o)
-  MAX_TOKENS     (optional) Max tokens for the final answer (default: 4096)
+  MODEL          (optional) Model identifier (default: openai/gpt-5)
+  MAX_TOKENS     (optional) Max tokens for the final answer (default: 100000)
 
 Prints the final model response to stdout and exits non-zero on error.
 
@@ -158,8 +158,8 @@ def run() -> str:
     github_token = os.environ["GITHUB_TOKEN"]
     system_prompt = os.environ["SYSTEM_PROMPT"]
     user_prompt = os.environ["USER_PROMPT"]
-    model = os.environ.get("MODEL", "openai/gpt-4o")
-    max_tokens = int(os.environ.get("MAX_TOKENS", "4096"))
+    model = os.environ.get("MODEL", "openai/gpt-5")
+    max_tokens = int(os.environ.get("MAX_TOKENS", "100000"))
 
     messages: list[dict] = [
         {"role": "system", "content": system_prompt},
