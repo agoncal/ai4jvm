@@ -249,6 +249,15 @@ Notes:
 - **Role:** Developer Advocate — IBM Research, JavaLand founder
 - **Links:** [@myfear](https://twitter.com/myfear) · [Bluesky](https://bsky.app/profile/myfear.com) · [GitHub](https://github.com/myfear) · [LinkedIn](https://www.linkedin.com/in/markuseisele/) · [Blog](https://blog.eisele.net/)
 
+### Antonio Goncalves
+
+- **Badge:** Person
+- **Java Champion**
+- **Initials:** AG
+- **Photo:** https://avatars.githubusercontent.com/u/729277?v=4
+- **Role:** Principal Software Engineer at Microsoft CoreAI, ParisJUG, Devoxx France, Café IA, book author
+- **Links:** [@agoncal](https://twitter.com/agoncal) · [Bluesky](https://bsky.app/profile/agoncal.bsky.social) · [GitHub](https://github.com/agoncal) · [LinkedIn](https://www.linkedin.com/in/agoncal/) · [Blog](https://antoniogoncalves.org)
+
 ### Frank Greco
 
 - **Badge:** Person
@@ -431,6 +440,12 @@ Notes:
 - **Badge:** Book
 - **Description:** Book by Craig Walls — comprehensive guide to building AI apps with Spring
 - **Links:** [Book](https://www.manning.com/books/spring-ai-in-action)
+
+### Understanding LangChain4j
+
+- **Badge:** Book
+- **Description:** Book by Antonio Goncalves — explore the fundamentals of AI, learn the history and evolution of AI models, and understand the core concepts of LangChain4j
+- **Links:** [Book](https://www.amazon.com/Understanding-LangChain4j-2nd-agoncal-fascicles-ebook/dp/B0FDQVSLXK)
 
 ### Production LangChain4j — Inside.java
 
