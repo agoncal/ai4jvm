@@ -52,20 +52,28 @@ $SPEC
 Return ONLY the complete updated index.html.
 USEREOF
 
+# Verify Claude CLI is available
+echo "Claude CLI version:" >&2
+claude --version >&2 2>&1 || { echo "claude CLI not found in PATH" >&2; }
+echo "ANTHROPIC_API_KEY is set: $([ -n "${ANTHROPIC_API_KEY:-}" ] && echo yes || echo no)" >&2
+
 # Call Claude Code CLI with web tools — pipe user prompt via stdin to avoid
 # argument size limits (index.html can be 50KB+)
 LLM_STDERR=$(mktemp)
 LLM_OUTPUT=$(mktemp)
+echo "Running claude -p with stdin ($(wc -c < "$USER_FILE") bytes)..." >&2
 if ! cat "$USER_FILE" | claude -p "Follow the system prompt instructions to update index.html based on the content provided via stdin." \
   --system-prompt-file "$SYSTEM_FILE" \
   --allowedTools "WebFetch,WebSearch" \
   --model claude-opus-4-6 \
   --max-turns 10 \
   --output-format text \
+  --verbose \
   >"$LLM_OUTPUT" 2>"$LLM_STDERR"; then
   ERR=$(cat "$LLM_STDERR")
+  OUTPUT=$(cat "$LLM_OUTPUT")
   gh pr comment "$PR_NUMBER" --repo "$REPO" \
-    --body "$(printf '❌ Site regeneration failed:\n\n```\n%s\n```' "$ERR")"
+    --body "$(printf '❌ Site regeneration failed:\n\nStderr:\n```\n%.3000s\n```\n\nStdout:\n```\n%.1000s\n```' "$ERR" "$OUTPUT")"
   exit 1
 fi
 
