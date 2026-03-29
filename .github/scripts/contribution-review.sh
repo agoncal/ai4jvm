@@ -32,6 +32,7 @@ if ! printf '%s' "$USER_PROMPT" | claude -p "Review the SPEC.md diff provided vi
   --model claude-opus-4-6 \
   --max-turns 30 \
   --output-format text \
+  --bare \
   >"$LLM_OUTPUT" 2>"$LLM_STDERR"; then
   ERR=$(cat "$LLM_STDERR")
   gh pr comment "$PR_NUMBER" --repo "$REPO" \

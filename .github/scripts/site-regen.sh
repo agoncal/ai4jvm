@@ -72,6 +72,7 @@ if ! claude -p "$(cat "$USER_FILE")" \
   --max-turns 30 \
   --output-format text \
   --verbose \
+  --bare \
   >"$LLM_OUTPUT" 2>"$LLM_STDERR"; then
   ERR=$(tail -c 3000 "$LLM_STDERR")
   OUTPUT=$(head -c 1000 "$LLM_OUTPUT")
