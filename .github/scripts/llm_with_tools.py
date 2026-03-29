@@ -192,6 +192,8 @@ def _api_call(messages: list, github_token: str, model: str,
             "Authorization": f"Bearer {github_token}",
         },
     )
+    print(f"Using endpoint: {API_URL}", file=sys.stderr)
+    print(f"Model: {model}, Token source: {'MAINTAINER_PAT' if os.environ.get('MAINTAINER_PAT') else 'GITHUB_TOKEN'}", file=sys.stderr)
     try:
         with urllib.request.urlopen(req) as resp:
             return json.loads(resp.read())
