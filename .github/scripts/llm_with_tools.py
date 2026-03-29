@@ -6,7 +6,7 @@ Reads the following environment variables:
   ANTHROPIC_API_KEY (required) Anthropic API key for authentication
   SYSTEM_PROMPT     (required) System prompt passed to the model
   USER_PROMPT       (required) User message passed to the model
-  MODEL             (optional) Model identifier (default: claude-sonnet-4-6)
+  MODEL             (optional) Model identifier (default: claude-opus-4-6)
   MAX_TOKENS        (optional) Max tokens for the final answer (default: 16384)
 
 Prints the final model response to stdout and exits non-zero on error.
@@ -200,7 +200,7 @@ def run() -> str:
     api_key = os.environ["ANTHROPIC_API_KEY"]
     system_prompt = os.environ["SYSTEM_PROMPT"]
     user_prompt = os.environ["USER_PROMPT"]
-    model = os.environ.get("MODEL", "claude-sonnet-4-6")
+    model = os.environ.get("MODEL", "claude-opus-4-6")
     max_tokens = int(os.environ.get("MAX_TOKENS", "16384"))
 
     messages: list[dict] = [
