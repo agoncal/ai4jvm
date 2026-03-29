@@ -6,19 +6,21 @@ Reads the following environment variables:
   GITHUB_TOKEN   (required) GitHub token used for API auth
   SYSTEM_PROMPT  (required) System prompt passed to the model
   USER_PROMPT    (required) User message passed to the model
-  MODEL          (optional) Model identifier (default: openai/gpt-5)
-  MAX_TOKENS     (optional) Max tokens for the final answer (default: 100000)
+  MODEL          (optional) Model identifier (default: openai/gpt-4.1)
+  MAX_TOKENS     (optional) Max tokens for the final answer (default: 16384)
 
 Prints the final model response to stdout and exits non-zero on error.
 
 Supported tools:
   fetch_webpage(url) – fetches a URL and returns stripped text content
+  web_search(query) – searches the web via DuckDuckGo and returns results
 """
 
 import json
 import os
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from html.parser import HTMLParser
 
@@ -90,6 +92,25 @@ def fetch_webpage(url: str) -> str:
         return f"Error fetching {url}: {exc}"
 
 
+def web_search(query: str) -> str:
+    """Search the web via DuckDuckGo HTML and return results."""
+    try:
+        encoded = urllib.parse.urlencode({"q": query})
+        req = urllib.request.Request(
+            f"https://html.duckduckgo.com/html/?{encoded}",
+            headers={"User-Agent": "Mozilla/5.0 (compatible; AI4JVM-reviewer/1.0)"},
+        )
+        with urllib.request.urlopen(req, timeout=_REQUEST_TIMEOUT) as resp:
+            raw = resp.read(60_000).decode("utf-8", errors="replace")
+
+        parser = _HTMLTextExtractor()
+        parser.feed(raw)
+        text = parser.get_text()
+        return text[:_FETCH_MAX_TEXT] or "(no results)"
+    except Exception as exc:
+        return f"Error searching for '{query}': {exc}"
+
+
 TOOLS = [
     {
         "type": "function",
@@ -112,10 +133,34 @@ TOOLS = [
                 "required": ["url"],
             },
         },
-    }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "web_search",
+            "description": (
+                "Search the web for information. Returns a list of search "
+                "results with titles, URLs, and snippets. Use this to find "
+                "information about libraries, projects, or technologies."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "The search query",
+                    }
+                },
+                "required": ["query"],
+            },
+        },
+    },
 ]
 
-_TOOL_HANDLERS = {"fetch_webpage": lambda args: fetch_webpage(args["url"])}
+_TOOL_HANDLERS = {
+    "fetch_webpage": lambda args: fetch_webpage(args["url"]),
+    "web_search": lambda args: web_search(args["query"]),
+}
 
 
 # ---------------------------------------------------------------------------
@@ -158,8 +203,8 @@ def run() -> str:
     github_token = os.environ["GITHUB_TOKEN"]
     system_prompt = os.environ["SYSTEM_PROMPT"]
     user_prompt = os.environ["USER_PROMPT"]
-    model = os.environ.get("MODEL", "openai/gpt-5")
-    max_tokens = int(os.environ.get("MAX_TOKENS", "100000"))
+    model = os.environ.get("MODEL", "openai/gpt-4.1")
+    max_tokens = int(os.environ.get("MAX_TOKENS", "16384"))
 
     messages: list[dict] = [
         {"role": "system", "content": system_prompt},

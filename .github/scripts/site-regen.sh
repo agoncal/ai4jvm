@@ -21,7 +21,7 @@ Update the above to match this SPEC.md:
 $SPEC
 
 Return ONLY the complete updated index.html."
-export MAX_TOKENS=100000
+export MAX_TOKENS=32000
 
 # Call GitHub Models with tool-calling support (fetch_webpage tool)
 NEW_HTML=$(python3 "$SCRIPT_DIR/llm_with_tools.py")
