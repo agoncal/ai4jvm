@@ -147,6 +147,11 @@ Note: Order by date, newest first. Don't show news older than 3 months
 - **Description:** Unified Java AI utility library for Jakarta EE and MicroProfile. Single API across 10 providers with zero external runtime dependencies — just java.net.http.HttpClient. Chat, streaming, structured outputs, web search, translation, and moderation in a lightweight JAR.
 - **Links:** [Website](https://omnihai.org) · [GitHub](https://github.com/omnifaces/omnihai) · [Javadoc](https://javadoc.io/doc/org.omnifaces/omnihai)
 
+### ACP Langchain4j bridge
+- **Badge:** Library
+- **Description:** An ACP client bridging the official [Kotlin ACP sdk](https://agentclientprotocol.com/libraries/kotlin) to [LangChain4j](https://docs.langchain4j.dev/intro/) and [LangGraph4j](https://github.com/langgraph4j/langgraph4j).
+- **Links:** [GitHub](https://github.com/OsgiliathEnterprise/acp-langgraph-langchain-bridge)
+
 ---
 
 ## Java with Code Assistants
