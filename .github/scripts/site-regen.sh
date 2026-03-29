@@ -52,24 +52,30 @@ $SPEC
 Return ONLY the complete updated index.html.
 USEREOF
 
-# Call Claude Code CLI with web tools
+# Call Claude Code CLI with web tools — pipe user prompt via stdin to avoid
+# argument size limits (index.html can be 50KB+)
 LLM_STDERR=$(mktemp)
-if ! NEW_HTML=$(claude -p "$(cat "$USER_FILE")" \
+LLM_OUTPUT=$(mktemp)
+if ! cat "$USER_FILE" | claude -p \
   --system-prompt-file "$SYSTEM_FILE" \
   --allowedTools "WebFetch,WebSearch" \
   --model claude-opus-4-6 \
   --max-turns 10 \
   --output-format text \
-  2>"$LLM_STDERR"); then
+  >"$LLM_OUTPUT" 2>"$LLM_STDERR"; then
   ERR=$(cat "$LLM_STDERR")
   gh pr comment "$PR_NUMBER" --repo "$REPO" \
     --body "$(printf '❌ Site regeneration failed:\n\n```\n%s\n```' "$ERR")"
   exit 1
 fi
 
+NEW_HTML=$(cat "$LLM_OUTPUT")
+echo "Claude output size: ${#NEW_HTML} bytes" >&2
+
 if [ -z "$NEW_HTML" ]; then
+  STDERR_CONTENT=$(cat "$LLM_STDERR")
   gh pr comment "$PR_NUMBER" --repo "$REPO" \
-    --body "❌ Site regeneration failed: no content returned from the model."
+    --body "$(printf '❌ Site regeneration failed: no content returned from the model.\n\nStderr:\n```\n%.2000s\n```' "$STDERR_CONTENT")"
   exit 1
 fi
 

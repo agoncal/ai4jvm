@@ -23,20 +23,23 @@ printf '%s' "$SYSTEM_PROMPT" > "$SYSTEM_FILE"
 
 USER_PROMPT=$(printf 'Please review this SPEC.md diff:\n\n```diff\n%s\n```' "$DIFF")
 
-# Call Claude Code CLI with web tools
+# Call Claude Code CLI with web tools — pipe prompt via stdin
 LLM_STDERR=$(mktemp)
-if ! REVIEW=$(claude -p "$USER_PROMPT" \
+LLM_OUTPUT=$(mktemp)
+if ! printf '%s' "$USER_PROMPT" | claude -p \
   --system-prompt-file "$SYSTEM_FILE" \
   --allowedTools "WebFetch,WebSearch" \
   --model claude-opus-4-6 \
   --max-turns 10 \
   --output-format text \
-  2>"$LLM_STDERR"); then
+  >"$LLM_OUTPUT" 2>"$LLM_STDERR"; then
   ERR=$(cat "$LLM_STDERR")
   gh pr comment "$PR_NUMBER" --repo "$REPO" \
     --body "$(printf '❌ Review failed:\n\n```\n%s\n```' "$ERR")"
   exit 1
 fi
+
+REVIEW=$(cat "$LLM_OUTPUT")
 
 if [ -z "$REVIEW" ]; then
   echo "Error: No review content in response"
