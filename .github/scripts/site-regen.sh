@@ -26,7 +26,11 @@ else
 fi
 
 # Build prompts for the LLM
-export SYSTEM_PROMPT="You are a web developer maintaining the AI4JVM website (a single-page HTML + inline CSS site, no build step). Your task is to update index.html so it exactly matches the provided SPEC.md. Preserve existing structure, styles, and inline CSS unless the spec requires changes. IMPORTANT: Do NOT delete or modify any HTML comments in the file — preserve all comments exactly as they are. You may use the fetch_webpage tool to look up any URLs mentioned in SPEC.md if you need more context. Return ONLY the complete updated index.html file — no explanation, no markdown code fences."
+export SYSTEM_PROMPT="You are a web developer maintaining the AI4JVM website (a single-page HTML + inline CSS site, no build step). Your task is to update index.html so it exactly matches the provided SPEC.md. Preserve existing structure, styles, and inline CSS unless the spec requires changes. IMPORTANT: Do NOT delete or modify any HTML comments in the file — preserve all comments exactly as they are.
+
+Before generating the HTML, use the fetch_webpage tool to verify that URLs for any NEW items in SPEC.md are reachable and that the linked pages match the descriptions. If a link is broken or the page content doesn't match the description, add an HTML comment next to that link noting the issue (e.g. <!-- LINK CHECK: 404 -->).
+
+Return ONLY the complete updated index.html file — no explanation, no markdown code fences."
 export USER_PROMPT="Current index.html:
 
 $CURRENT_HTML
