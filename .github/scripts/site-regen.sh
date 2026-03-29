@@ -94,7 +94,7 @@ fi
 NEW_HTML=$(echo "$NEW_HTML" | sed '/^```.*$/d')
 
 # Strip any reasoning/thinking text before the actual HTML (case-insensitive)
-NEW_HTML=$(echo "$NEW_HTML" | sed -n '/<!DOCTYPE html>/Ip')
+NEW_HTML=$(echo "$NEW_HTML" | sed -n '/<!DOCTYPE html>/I,$p')
 
 # Validate the output looks like a complete HTML file
 if [ ${#NEW_HTML} -lt 1000 ]; then
