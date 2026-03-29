@@ -76,8 +76,15 @@ fi
 # Strip markdown code fences if the model wrapped the output in them
 NEW_HTML=$(echo "$NEW_HTML" | sed '/^```.*$/d')
 
-# Strip any reasoning/thinking text before the actual HTML
-NEW_HTML=$(echo "$NEW_HTML" | sed -n '/<!DOCTYPE html>/,$p')
+# Strip any reasoning/thinking text before the actual HTML (case-insensitive)
+NEW_HTML=$(echo "$NEW_HTML" | sed -n '/<!DOCTYPE html>/Ip')
+
+# Validate the output looks like a complete HTML file
+if [ ${#NEW_HTML} -lt 1000 ]; then
+  gh pr comment "$PR_NUMBER" --repo "$REPO" \
+    --body "$(printf '❌ Site regeneration failed: model output does not appear to be a valid HTML file (%d bytes after filtering).\n\nFirst 500 chars of raw output:\n```\n%.500s\n```' "${#NEW_HTML}" "$NEW_HTML")"
+  exit 1
+fi
 
 # Store the regenerated content as a git blob object
 NEW_BLOB=$(printf '%s\n' "$NEW_HTML" | git hash-object -w --stdin)
