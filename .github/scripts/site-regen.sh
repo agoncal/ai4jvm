@@ -56,7 +56,7 @@ USEREOF
 # argument size limits (index.html can be 50KB+)
 LLM_STDERR=$(mktemp)
 LLM_OUTPUT=$(mktemp)
-if ! cat "$USER_FILE" | claude -p \
+if ! cat "$USER_FILE" | claude -p "Follow the system prompt instructions to update index.html based on the content provided via stdin." \
   --system-prompt-file "$SYSTEM_FILE" \
   --allowedTools "WebFetch,WebSearch" \
   --model claude-opus-4-6 \

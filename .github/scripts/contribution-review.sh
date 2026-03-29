@@ -26,7 +26,7 @@ USER_PROMPT=$(printf 'Please review this SPEC.md diff:\n\n```diff\n%s\n```' "$DI
 # Call Claude Code CLI with web tools — pipe prompt via stdin
 LLM_STDERR=$(mktemp)
 LLM_OUTPUT=$(mktemp)
-if ! printf '%s' "$USER_PROMPT" | claude -p \
+if ! printf '%s' "$USER_PROMPT" | claude -p "Review the SPEC.md diff provided via stdin according to the system prompt guidelines." \
   --system-prompt-file "$SYSTEM_FILE" \
   --allowedTools "WebFetch,WebSearch" \
   --model claude-opus-4-6 \
