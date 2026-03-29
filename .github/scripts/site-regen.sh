@@ -103,10 +103,13 @@ if [ "${IS_FORK:-false}" = "true" ]; then
   if [ -n "${MAINTAINER_PAT:-}" ] && [ "${MAINTAINER_CAN_MODIFY:-false}" = "true" ]; then
     # Strategy 1: Push directly to the fork branch using the PAT
     FORK_URL="https://x-access-token:${MAINTAINER_PAT}@github.com/${HEAD_REPO}.git"
-    if git push "$FORK_URL" "$NEW_COMMIT:refs/heads/$HEAD_REF" 2>/dev/null; then
+    PUSH_ERR=$(mktemp)
+    if git push --force "$FORK_URL" "$NEW_COMMIT:refs/heads/$HEAD_REF" 2>"$PUSH_ERR"; then
       gh pr comment "$PR_NUMBER" --repo "$REPO" \
         --body "✅ Site regenerated and pushed to this PR branch."
       exit 0
+    else
+      echo "Strategy 1 (push to fork) failed: $(cat "$PUSH_ERR")" >&2
     fi
   fi
 
