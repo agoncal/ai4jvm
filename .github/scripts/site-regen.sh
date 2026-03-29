@@ -40,6 +40,7 @@ Update the above to match this SPEC.md:
 $SPEC
 
 Return ONLY the complete updated index.html."
+export MODEL=openai/gpt-4.1
 export MAX_TOKENS=32000
 
 # Call GitHub Models with tool-calling support (fetch_webpage tool)
