@@ -3,6 +3,10 @@ set -euo pipefail
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+git config user.name "github-actions[bot]"
+git config user.email "github-actions[bot]@users.noreply.github.com"
+
 BASE_HEAD=$(git rev-parse HEAD)
 
 # Merge the base branch into the PR head so the regen commit is up-to-date
@@ -73,8 +77,6 @@ if [ "$OLD_BLOB" = "$NEW_BLOB" ]; then
 fi
 
 # Build the new tree: start from the merge/base tree and replace index.html
-git config user.name "github-actions[bot]"
-git config user.email "github-actions[bot]@users.noreply.github.com"
 
 NEW_TREE=$(git ls-tree "$REGEN_BASE_TREE" | \
   awk -v blob="$NEW_BLOB" '/\tindex\.html$/{printf "100644 blob %s\tindex.html\n", blob; next} {print}' | \
