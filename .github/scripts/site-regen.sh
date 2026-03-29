@@ -101,11 +101,19 @@ if [ "${IS_FORK:-false}" = "true" ]; then
   BASE_OWNER="${REPO%%/*}"
 
   if [ -n "${MAINTAINER_PAT:-}" ]; then
-    # Strategy 1: Push directly to the fork branch using the PAT
-    # Try regardless of maintainer_can_modify — the PAT may have access
+    # Strategy 1: Push directly to the fork branch using the PAT.
+    # Build a fork-safe commit: start from the fork's tree (HEAD_SHA) and only
+    # replace index.html. This avoids pushing .github/ workflow changes from
+    # the base repo, which GitHub would block for security.
+    FORK_TREE=$(git ls-tree "$HEAD_SHA" | \
+      awk -v blob="$NEW_BLOB" '/\tindex\.html$/{printf "100644 blob %s\tindex.html\n", blob; next} {print}' | \
+      git mktree)
+    FORK_COMMIT=$(git commit-tree "$FORK_TREE" -p "$HEAD_SHA" \
+      -m "regen: update index.html from SPEC.md")
+
     FORK_URL="https://x-access-token:${MAINTAINER_PAT}@github.com/${HEAD_REPO}.git"
     PUSH_ERR=$(mktemp)
-    if git push --force "$FORK_URL" "$NEW_COMMIT:refs/heads/$HEAD_REF" 2>"$PUSH_ERR"; then
+    if git push --force "$FORK_URL" "$FORK_COMMIT:refs/heads/$HEAD_REF" 2>"$PUSH_ERR"; then
       gh pr comment "$PR_NUMBER" --repo "$REPO" \
         --body "✅ Site regenerated and pushed to this PR branch."
       exit 0
